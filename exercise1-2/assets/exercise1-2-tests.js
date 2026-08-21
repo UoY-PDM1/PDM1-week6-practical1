@@ -1,4 +1,4 @@
-import { LOAD_FONT, TestResults, advanceToFrame, canvasStatus, checkBackgroundIsCalledInDraw, checkCanvasSize, getShapes, testSettingIsCalled } from "../../lib/test-utils.js";
+import { LOAD_FONT, TestResults, advanceToFrame, canvasStatus, checkBackgroundIsCalledInDraw, checkCanvasSize, getShapes, testSettingIsCalled } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@latest/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -14,15 +14,10 @@ function waitForP5() {
 async function runTests(canvas) {
     canvas.style.pointerEvents = "none";
     const resultsDiv = document.getElementById("results");
-    if (canvasStatus.preloadContents.length === 3 && canvasStatus.preloadContents[1].indexOf("noLoop();") >= 0) {
-        TestResults.addFail("<code>preload()</code> is not implemented.");
+    if (testSettingIsCalled(LOAD_FONT.re, true, false)) {
+        TestResults.addPass("<code>loadFont()</code> is called in <code>setup()</code>.");
     } else {
-        TestResults.addPass("<code>preload()</code> is implemented.");
-    }
-    if (testSettingIsCalled(LOAD_FONT, false, false, true)) {
-        TestResults.addPass("<code>loadFont()</code> is called in <code>preload()</code>.");
-    } else {
-        TestResults.addFail("<code>loadFont()</code> is not called in <code>preload()</code>. It should only be called in <code>preload()</code> to ensure that the fonts are fully loaded before they are used.");
+        TestResults.addFail("<code>loadFont()</code> is not called in <code>setup()</code>. It should only be called in <code>preload()</code> to ensure that the fonts are fully loaded before they are used.");
     }
     checkBackgroundIsCalledInDraw();
     if (window.hasOwnProperty("keyPressed") || window.hasOwnProperty("keyReleased") || window.hasOwnProperty("keyTyped")) {

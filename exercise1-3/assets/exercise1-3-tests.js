@@ -1,4 +1,4 @@
-import { TestResults, advanceToFrame, canvasStatus, getShapes } from "../../lib/test-utils.js";
+import { TestResults, advanceToFrame, canvasStatus, getShapes } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@latest/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -23,10 +23,10 @@ async function runTests(canvas) {
             currentFrameRate = 60;
         }
         if (currentFrameRate === 2) {
-            advanceToFrame(frameCount + 1);
+            await advanceToFrame(frameCount + 1);
         }
         else {
-            advanceToFrame(Math.max(Math.floor(currentFrameRate / 2), frameCount + 1));
+            await advanceToFrame(Math.max(Math.floor(currentFrameRate / 2), frameCount + 1));
         }
         const frame2 = getShapes().filter(s => s.type === TEXT);
         if (frame2.length === 0) {
@@ -38,7 +38,7 @@ async function runTests(canvas) {
                 TestResults.addPass("The displayed message increases by one character after half a second.");
             } else {
                 if (currentFrameRate > 2) {
-                    advanceToFrame(frameCount + 1);
+                    await advanceToFrame(frameCount + 1);
                     const frame3 = getShapes().filter(s => s.type === TEXT);
                     if (frame3.length === 0) {
                         TestResults.addFail(`No text was found at frame ${frameCount}. Unable to run any more tests.`);

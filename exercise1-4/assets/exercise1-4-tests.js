@@ -1,4 +1,4 @@
-import { TestResults, advanceToFrame, getShapes } from "../../lib/test-utils.js";
+import { simulateMousePosition, TestResults, advanceToFrame, getShapes } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@latest/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -34,10 +34,11 @@ async function runTests(canvas) {
             TestResults.addFail(`Before any virtual keys are clicked, no text should be displayed. <code>text()</code> was called with the string, "${actualText[0].msg}".`);
         }
         if (window.hasOwnProperty("mouseClicked")) {
-            mouseX = 350;
-            mouseY = 510;
+            // mouseX = 350;
+            // mouseY = 510;
+            simulateMousePosition(350, 510);
             mouseClicked();
-            advanceToFrame(frameCount + 1);
+            await advanceToFrame(frameCount + 1);
             actualText = getShapes().filter(shape => shape.type === TEXT && (shape.msg.length === 0 || shape.msg.length > 1 || !textIsKey(shape.msg, shape.x, shape.y)));
             if (actualText.length === 1 && actualText[0].msg === "H") {
                 TestResults.addPass("When the mouse clicks for the first time (at 350, 510), \"H\" is displayed.");

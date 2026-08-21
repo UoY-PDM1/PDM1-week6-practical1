@@ -1,4 +1,4 @@
-import { TestResults, canvasStatus, checkBackgroundIsCalledInDraw, checkCanvasSize, getShapes } from "../../lib/test-utils.js";
+import { SHAPE, TestResults, canvasStatus, checkBackgroundIsCalledInDraw, checkCanvasSize, getShapes } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@latest/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -21,7 +21,7 @@ async function runTests(canvas) {
     if (actual.length !== 1) {
         TestResults.addFail(`Expected only text. Found ${actual.length} shapes.`);
     } else {
-        if (actual[0].type !== TEXT) {
+        if (actual[0].type !== SHAPE.TEXT) {
             TestResults.addFail(`Expected text, found a ${actual[0].type}.`);
         } else {
             if (actual[0].msg !== msg) {
