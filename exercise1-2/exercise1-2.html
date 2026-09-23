@@ -44,7 +44,7 @@
             <div class="collapse" id="hint">
                 <div class="card card-body">
                     <p>You will need two global variables to store the loaded fonts.</p>
-                    <p>You will also need to implement the p5.js <code>preload()</code> function. In the function, call <a href="https://p5js.org/reference/p5/loadFont" target="_blank">loadFont()</a> to load 
+                    <p>You will also need to make the <code>setup()</code> function asynchronous by adding the <code>async</code>keyword. In the function, call <a href="https://p5js.org/reference/p5/loadFont" target="_blank">loadFont()</a> (preceded by the <code>await</code> keyword) to load 
                     each font file and store them in the global variables. You need to supply <code>loadFont()</code> with the path to a font file. Assuming your fonts are 
                     stored in the assets folder, your path will begin with "assets/". Don't forget the file extension, likely .ttf, when specifying the file path.</p>
                     <p>To switch between the two fonts, you will need a third global variable, which will track which font is active. When the "f" key is pressed, use a 
@@ -63,8 +63,12 @@ function preload() {
     // don't set currentFont yet!
 }
 
-function setup() {
-    // create the canvas first...
+async function setup() {
+    // create the canvas ...
+    
+    // Call loadFont() to load font 1 and 2:
+    font1 = await loadFont("assets/your-font-file1.ttf");
+    font2 = await loadFont("assets/your-font-file2.ttf");
 
     // then set currentFont
     currentFont = font1;
